@@ -1,0 +1,15 @@
+CREATE TABLE Avtomobile(id bigint PRIMARY KEY, marka varchar(50), model varchar(50), toplivo varchar(50), V bigint, korobka varchar(50), year DATE, color varchar(50)); 
+CREATE TABLE Voditel(id bigint PRIMARY KEY, name varchar(50), surname varchar(50), date DATE, staj integer, sex varchar(50),id_a bigint REFERENCES Avtomobile(id)); 
+CREATE TABLE Operator(id bigint PRIMARY KEY, name varchar(50), surname varchar(50), date DATE, sex varchar(50)); 
+INSERT INTO Avtomobile(id, marka, model, toplivo, V, korobka, year, color) VALUES (1, 'BMW', 'x5', 'benzin', 4, 'mehanica', '2015-01-01', 'black'), (2, 'Mercedes', 's350', 'dizel', 3, 'korobka', '2005-01-01', 'gray'), (3, 'Toyota', 'Camry', 'electro', 5000, 'mehanica', '2020-01-01', 'white'),(4, 'BMW', 'x5', 'benzin', 4, 'mehanica', '2015-1-1', 'red'),(5, 'BMW', 'x5', 'benzin', 4, 'korobka', '2015-1-1', 'black'),(6, 'BMW', 'x5', 'benzin', 5, 'mehanica', '2015-1-1', 'black'),(7, 'Mercedes', 's350', 'dizel', 3, 'korobka', '2005-1-1', 'red'),(8, 'Mercedes', 's350', 'benzin', 3, 'korobka', '2005-1-1', 'gray'),(9, 'Toyota', 'Camry', 'electro', 5000, 'mehanica', '2020-1-1', 'red'),(10, 'Toyota', 'Camry', 'electro', 7000, 'mehanica', '2020-1-1', 'white');
+INSERT INTO Voditel(id, name, surname, date, staj, sex, id_a) VALUES (1, 'Azamat', 'Azamatov', '1970-01-01', 20, 'male', 1), (2, 'Artur', 'Nuranov', '1990-01-01', 10, 'male', 2), (3, 'Aziz', 'Bakiev', '1980-01-01', 5, 'female', 3), (4, 'Azat', 'Azamatov', '1960-01-01', 20, 'male', 1),(5, 'Azt', 'Azamatov', '1950-01-01', 20, 'female', 1),(6, 'Aza', 'Azamatov', '1940-01-01', 20, 'male', 1),(7, 'Art', 'Nuranov', '1991-01-01', 10, 'female', 2),(8, 'Arur', 'Nuranov', '1992-01-01', 10, 'male', 2),(9, 'Aiz', 'Bakiev', '1985-01-01', 5, 'female', 3),(10, 'Az', 'Bakiev', '1987-01-01', 5, 'female', 3); 
+INSERT INTO Operator(id, name, surname, date, sex) VALUES (1, 'T', 'O', '1998-10-11', 'male'), (2, 'A', 'B', '2013-01-01', 'female'), (3, 'C', 'E', '2012-01-01', 'female'),(4, 'Ab', 'Ba', '2010-01-01', 'male'),(5, 'Oo', 'GAG', '2014-01-01', 'female'), (6, 'Io', 'Wisp', '2008-01-01', 'male'),(7, 'Klip', 'B', '2013-01-01', 'male'), (8, 'Kek', 'Lol', '2003-01-01', 'female'), (9, 'DA', 'NET', '2011-01-01', 'female'), (10, 'Krip', 'AM', '2005-01-01', 'male');  
+SELECT * FROM Avtomobile WHERE marka = 'Toyota' AND model = 'Camry' ORDER BY year DESC;
+SELECT DISTINCT name FROM Operator ORDER BY name DESC LIMIT 10;
+UPDATE Avtomobile SET marka = 'Mersus' WHERE marka = 'Mercedes';
+DELETE FROM Voditel WHERE name = 'Azamat' AND surname = 'Azamatov';
+SELECT COUNT(*) FROM Voditel WHERE staj > 10 AND sex = 'female';
+SELECT AVG(staj) FROM Voditel WHERE date > '1975-10-10';
+SELECT * FROM Avtomobile as a JOIN Voditel as v ON a.id = v.id_a;
+SELECT marka, COUNT(*) FROM Avtomobile GROUP BY marka;
+SELECT COUNT(*), v.name FROM Avtomobile as a JOIN Voditel as v ON a.id = v.id_a GROUP BY v.name;
